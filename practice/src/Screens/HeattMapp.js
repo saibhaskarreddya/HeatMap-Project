@@ -7,12 +7,7 @@ export default function MyComponent() {
     const [name, setName] = useState([]);
     const [newgraph, setNewgraph] = useState([]);
     const [monthdata, setMonthdata] = useState([]);
-    const [showHeatMap, setShowHeatMap] = useState(true);
-
     const [graphdata, setGraphdata] = useState([]);
-    //const [dataArray, setDataArray] = useState([]);
-
-
     const [showmap1, setShowmap1] = useState(false);
     const [showmap2, setShowmap2] = useState(false);
 
@@ -80,52 +75,7 @@ export default function MyComponent() {
     };
 
 
-    var myfun1 = (selectedOption) => {
-
-        var option = selectedOption - 1
-        console.log();
-
-        console.log(graphdata[option][11].toFixed(2));
-        // const xLabelsVisibility = new Array(88).fill(0).map((_, i) => i % 2 === 0);
-        var yLabels = ["2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013"];
-        var xLabels = ["Dec", "Nov", "Oct", "Sep", "Aug", "July", "Jun", "May", "APr", "Mar", "Feb", "Jan"];
-        var data = [];
-
-        for (var x = 0; x < 12; x++) {
-            var tempdata = []
-            for (var y = 0; y < 12; y++) {
-                tempdata.push(graphdata[option][12 * x + y].toFixed(2));
-            }
-            data.push(tempdata);
-        }
-
-
-
-
-        console.log(data);
-
-        return (
-            <div style={{ fontSize: "13px" }}>
-                <HeatMap
-                    xLabels={xLabels}
-                    yLabels={yLabels}
-                    xLabelsLocation={"top"}
-                    // xLabelsVisibility={xLabelsVisibility}
-                    xLabelWidth={60}
-                    data={data}
-                    squares
-                    height={45}
-                    onClick={(x, y) => alert(`Clicked ${x}, ${y}`)}
-                    cellStyle={(background, value, min, max, data, x, y) => ({
-                        background: `rgb(0, 151, 230, ${1 - (max - value) / (max - min)})`,
-                        fontSize: "11.5px",
-                        color: "#444"
-                    })}
-                    cellRender={value => value && <div>{value}</div>}
-                />
-            </div>
-        );
-    };
+  
 
     useEffect(() => {
         fetch('http://localhost:8081/TestMaven/workpage/stocklist')
@@ -226,10 +176,9 @@ export default function MyComponent() {
         return null;
     };
 
-    const RenderHeatMap = renderHeatMap;
 
     const renderHeatMap1 = () => {
-        // setShowHeatMap(false);
+       
 
         console.log(newgraph.length)
 
@@ -545,9 +494,7 @@ export default function MyComponent() {
             </select>
             <button onClick={button4}>Comparedall_stocks</button><br />
 
-            {/* if(renderHeatMap() ? ) */}
-
-            {/* {renderHeatMap() || renderHeatMap1()} */}
+            
             {showmap1 && renderHeatMap()}
             {showmap2 && renderHeatMap1()}
 
